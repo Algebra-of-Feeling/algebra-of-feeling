@@ -1,0 +1,158 @@
+// Despejo Sounio para o comparador C++/Sounio — Algebra do Sentir v0.3.2.
+// Generaliza exemplo_minimo.sio: update()/admissible() recebem kx como parametro
+// (kx=1/2 -> regime "asym", quebra de simetria; kx=1 -> regime "sym", controle),
+// exatamente como bloch_core.hpp faz do lado C++. Mesma convencao de
+// Cayley-Dickson, mesma regra de ligacao de Bloch (sigma = 1/2 (I + kx s X + s Z)),
+// mesma ordem de operacoes. Sem interpretacao clinica.
+use algebra::cayley_dickson::{CDElement, cd_basis, cd_add, cd_sub, cd_mul, cd_norm_sq}
+
+fn seventh(r: CDElement, bits: i32) -> f64 with Mut, Panic, Div {
+    let e7 = cd_basis(bits,7)
+    (cd_norm_sq(cd_add(r,e7))-cd_norm_sq(cd_sub(r,e7)))/4.0
+}
+
+struct Mat2 { a: f64, b: f64, c: f64, d: f64 }
+
+fn mul(x: Mat2, y: Mat2) -> Mat2 {
+    Mat2 { a: x.a*y.a+x.b*y.c, b: x.a*y.b+x.b*y.d,
+           c: x.c*y.a+x.d*y.c, d: x.c*y.b+x.d*y.d }
+}
+
+fn trace(x: Mat2) -> f64 { x.a+x.d }
+
+fn prob(rho: Mat2, first: Mat2, second: Mat2) -> f64 {
+    trace(mul(mul(second, mul(mul(first, rho), first)), second))
+}
+
+fn sval(coefficient7: f64) -> f64 {
+    let magnitude = if coefficient7 < 0.0 { 0.0-coefficient7 } else { coefficient7 }
+    coefficient7 / (1.0+magnitude)
+}
+
+fn admissible(coefficient7: f64, kx: f64) -> bool {
+    let s = sval(coefficient7)
+    (1.0+kx*kx)*s*s <= 1.0
+}
+
+fn determinant(x: Mat2) -> f64 { x.a*x.d-x.b*x.c }
+
+// sigma(r7,kx) = 1/2 (I + kx s X + s Z); entradas ja com o fator 1/2.
+fn sigma_a(s: f64) -> f64 { 0.5*(1.0+s) }
+fn sigma_d(s: f64) -> f64 { 0.5*(1.0-s) }
+fn sigma_off(s: f64, kx: f64) -> f64 { 0.5*kx*s }
+
+fn det_sigma(coefficient7: f64, kx: f64) -> f64 {
+    let s = sval(coefficient7)
+    sigma_a(s)*sigma_d(s) - sigma_off(s,kx)*sigma_off(s,kx)
+}
+
+// U(rho0, r7, kx) = 1/2 rho0 + 1/2 sigma(r7,kx); rho0 = I/2 sempre aqui, embutido no
+// chamador via rho0.a = rho0.d = 0.5, rho0.b = rho0.c = 0.0.
+fn update(rho: Mat2, coefficient7: f64, kx: f64) -> Mat2 with IO, Panic {
+    require(admissible(coefficient7, kx))
+    let s = sval(coefficient7)
+    Mat2 { a: 0.5*rho.a+0.5*sigma_a(s), b: 0.5*rho.b+0.5*sigma_off(s,kx),
+           c: 0.5*rho.c+0.5*sigma_off(s,kx), d: 0.5*rho.d+0.5*sigma_d(s) }
+}
+
+fn require(ok: bool) with IO, Panic {
+    if !ok { panic("SOUNIO_DUMP_V032_CHECK_FAILED") }
+}
+
+fn print_f64_full(value: f64) with Panic, Div, Mut, IO {
+    // Formatacao com 17 casas decimais: suficiente para representar exatamente
+    // qualquer fracao diadica ate denominador 2^52, que cobre com folga os
+    // denominadores desta realizacao (potencias de 2 ate 2^10 ou menos).
+    let int_part = value as i64
+    let frac = value - int_part as f64
+    let frac_abs = if frac < 0.0 { -frac } else { frac }
+    if value < 0.0 && int_part == 0 {
+        print("-")
+    }
+    print_int(int_part)
+    print(".")
+    var i: i64 = 0
+    var remaining = frac_abs
+    while i < 17 {
+        remaining = remaining * 10.0
+        let digit = remaining as i64
+        print_int(digit)
+        remaining = remaining - digit as f64
+        i = i + 1
+    }
+}
+
+fn dump_kv(key: string, value: f64) with Panic, Div, Mut, IO {
+    print(key)
+    print("\t")
+    print_f64_full(value)
+    println("")
+}
+
+// Despeja as 18 chaves <regime>.<codigo>.<campo> para um codigo admissivel
+// (rho_L, rho_R ou rho_0).
+fn dump_code(prefix: string, coefficient7: f64, kx: f64) with IO, Mut, Panic, Div {
+    let rho0 = Mat2 { a: 0.5, b: 0.0, c: 0.0, d: 0.5 }
+    let rho = update(rho0, coefficient7, kx)
+    let p = Mat2 { a: 1.0, b: 0.0, c: 0.0, d: 0.0 }
+    let pn = Mat2 { a: 0.0, b: 0.0, c: 0.0, d: 1.0 }
+    let q = Mat2 { a: 0.5, b: 0.5, c: 0.5, d: 0.5 }
+    let qn = Mat2 { a: 0.5, b: -0.5, c: -0.5, d: 0.5 }
+    dump_kv(prefix+".admissible", if admissible(coefficient7,kx) { 1.0 } else { 0.0 })
+    dump_kv(prefix+".rho_a", rho.a)
+    dump_kv(prefix+".rho_b", rho.b)
+    dump_kv(prefix+".rho_c", rho.c)
+    dump_kv(prefix+".rho_d", rho.d)
+    dump_kv(prefix+".det", determinant(rho))
+    dump_kv(prefix+".p_Pplus", trace(mul(p,rho)))
+    dump_kv(prefix+".p_Qplus", trace(mul(q,rho)))
+    dump_kv(prefix+".pq_Pplus_Qplus", prob(rho,p,q))
+    dump_kv(prefix+".pq_Pplus_Qminus", prob(rho,p,qn))
+    dump_kv(prefix+".pq_Pminus_Qplus", prob(rho,pn,q))
+    dump_kv(prefix+".pq_Pminus_Qminus", prob(rho,pn,qn))
+    dump_kv(prefix+".qp_Qplus_Pplus", prob(rho,q,p))
+    dump_kv(prefix+".qp_Qplus_Pminus", prob(rho,q,pn))
+    dump_kv(prefix+".qp_Qminus_Pplus", prob(rho,qn,p))
+    dump_kv(prefix+".qp_Qminus_Pminus", prob(rho,qn,pn))
+    dump_kv(prefix+".marginal_P_after_Q", prob(rho,q,p)+prob(rho,qn,p))
+    dump_kv(prefix+".qQQ", prob(rho,p,qn)+prob(rho,pn,q)-prob(rho,q,pn)-prob(rho,qn,p))
+}
+
+// Despeja as 2 chaves do codigo invalid (r7=9, sempre rejeitado nos dois regimes).
+fn dump_invalid(prefix: string, kx: f64) with IO, Mut, Panic, Div {
+    let coefficient7 = 9.0
+    require(!admissible(coefficient7, kx))
+    dump_kv(prefix+".admissible", 0.0)
+    dump_kv(prefix+".det_sigma", det_sigma(coefficient7, kx))
+}
+
+fn dump_regime(name: string, kx: f64, left7: f64, right7: f64, zero7: f64) with IO, Mut, Panic, Div {
+    dump_code(name+".rho_L", left7, kx)
+    dump_code(name+".rho_R", right7, kx)
+    dump_code(name+".rho_0", zero7, kx)
+    dump_invalid(name+".invalid", kx)
+}
+
+fn main() -> i64 with IO, Mut, Panic, Div {
+    let x = cd_basis(3, 1)
+    let y = cd_basis(3, 2)
+    let z = cd_basis(3, 4)
+    let left = cd_mul(cd_mul(x,y),z)
+    let right = cd_mul(x,cd_mul(y,z))
+    let left7 = seventh(left,3)
+    let right7 = seventh(right,3)
+
+    let a = cd_add(cd_basis(4,1),cd_basis(4,10))
+    let b = cd_sub(cd_basis(4,4),cd_basis(4,15))
+    let ab = cd_mul(a,b)
+    let zero7 = seventh(ab,4)
+
+    dump_kv("r_L7", left7)
+    dump_kv("r_R7", right7)
+    dump_kv("r_07", zero7)
+
+    dump_regime("asym", 0.5, left7, right7, zero7)
+    dump_regime("sym", 1.0, left7, right7, zero7)
+
+    0
+}
