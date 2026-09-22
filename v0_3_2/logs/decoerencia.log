@@ -1,0 +1,12 @@
+=== rho_L ===
+lambda=1/1  coer=1/16  Delta_Q=1/16 (x/2=1/16)  Delta_P=1/8 (z/2=1/8)  qQQ=0/1  OK
+lambda=3/4  coer=3/64  Delta_Q=3/64 (x/2=3/64)  Delta_P=1/8 (z/2=1/8)  qQQ=0/1  OK
+lambda=1/2  coer=1/32  Delta_Q=1/32 (x/2=1/32)  Delta_P=1/8 (z/2=1/8)  qQQ=0/1  OK
+lambda=1/4  coer=1/64  Delta_Q=1/64 (x/2=1/64)  Delta_P=1/8 (z/2=1/8)  qQQ=0/1  OK
+lambda=0/1  coer=0/1  Delta_Q=0/1 (x/2=0/1)  Delta_P=1/8 (z/2=1/8)  qQQ=0/1  OK
+=== rho_R ===
+lambda=1/1  coer=-1/16  Delta_Q=-1/16 (x/2=-1/16)  Delta_P=-1/8 (z/2=-1/8)  qQQ=0/1  OK
+lambda=3/4  coer=-3/64  Delta_Q=-3/64 (x/2=-3/64)  Delta_P=-1/8 (z/2=-1/8)  qQQ=0/1  OK
+lambda=1/2  coer=-1/32  Delta_Q=-1/32 (x/2=-1/32)  Delta_P=-1/8 (z/2=-1/8)  qQQ=0/1  OK
+lambda=1/4  coer=-1/64  Delta_Q=-1/64 (x/2=-1/64)  Delta_P=-1/8 (z/2=-1/8)  qQQ=0/1  OK
+lambda=0/1  coer=0/1  Delta_Q=0/1 (x/2=0/1)  Delta_P=-1/8 (z/2=-1/8)  qQQ=0/1  OK
