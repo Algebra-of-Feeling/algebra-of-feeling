@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "negative_controls": [
+    {
+      "case": "reject_validation_as_theorem",
+      "exit": 1,
+      "detected": true
+    },
+    {
+      "case": "reject_hypothesis_as_theorem",
+      "exit": 1,
+      "detected": true
+    },
+    {
+      "case": "reject_finite_evidence_promoted_to_P",
+      "exit": 1,
+      "detected": true,
+      "diagnostic": "finite evidence must be V"
+    },
+    {
+      "case": "reject_stale_source_identity",
+      "exit": 1,
+      "detected": true,
+      "diagnostic": "hash mismatch"
+    },
+    {
+      "case": "reject_unsupported_source_refinement_promotion",
+      "exit": 1,
+      "detected": true,
+      "diagnostic": "unsupported promotion: sounio_lean_verified_refinement"
+    }
+  ],
+  "scope": "intentional alterations in isolated copies; authoritative files preserved"
+}

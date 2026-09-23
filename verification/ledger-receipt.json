@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "validated_ids": [
+    "V-DIFF1",
+    "V-DIFF2",
+    "V-EXACT1",
+    "V-NEG1",
+    "V-MUT1",
+    "V-LEAN1",
+    "V-ZD1",
+    "V-GATE1"
+  ],
+  "checks": "hash identity, exact recorded output equality, mutation outcomes, Lean receipts, no unsupported state promotion",
+  "computational_audit_not_theorem": true,
+  "sha256": {
+    "EVIDENCE_LEDGER.json": "9b63e46fbf218ef86fe0885ff2c548567efaf6943cdfb89968bb04ad35da44a3",
+    "PROJECT_STATE.json": "808288b0246a8dfe13d0f3280252b5105817530b0bebee1a773f71652f2c56ef",
+    "verification/receipt.json": "e5fa11dc33f153b5a8b9e772cf40d1f28d13ac993a0f761b94ae1c28e037283e",
+    "differential/verification/receipt.json": "373b34ab4846d7eb12705cf363e1c2508d0b993ae9fce6fada42f4a5eef41b62",
+    "differential/verification/lean-replay-receipt.json": "065080b6051e02962e5891db714b7801ccedc81189301b93b4c93d6c1319dd80",
+    "scripts/verify_ledger.py": "a7fcf6397cc1a60a3cbe6da4a674abff8ebbe7a48db9ff52c7241fe35290e930"
+  }
+}

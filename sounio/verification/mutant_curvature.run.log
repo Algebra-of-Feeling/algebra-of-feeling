@@ -1,0 +1,8 @@
+RCDA_SOUNIO_WITNESS_V2
+[V] independent algorithms: 341 basis pairs and 16 dense signed pairs agree
+[V] embedding: 64 basis products preserve multiplication and sector
+OCT_ASSOC_E1_E2_E4=0 0 0 0 0 0 0 2 
+[V] 64 quaternion basis triples associative; octonion witness nonzero
+ANNIHILATION_PRODUCT=0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[V] (e1+e10)(e4-e15)=0, both factors nonzero, sector escape observed
+FAIL curvature deformation
