@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "verifier": "C++23 scripts/verify.cpp",
+  "proof_authority": "Lean 4 kernel",
+  "lean": "Lean (version 4.33.0, arm64-apple-darwin24.6.0, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)\n",
+  "source_gate": "PASS",
+  "clean_build_exit_code": 0,
+  "axiom_audit_exit_code": 0,
+  "summary": "AUDIT PASS: 853 RCDA declarations; 396 theorem declarations; 49 tagged claims; 8 scientific hypotheses kept as text.",
+  "foundational_axioms": "FOUNDATIONAL AXIOMS USED: [Classical.choice, Quot.sound, propext]",
+  "source_hashes": "sha256.txt",
+  "external_packages": [],
+  "runtime_evidence_revalidated": false
+}

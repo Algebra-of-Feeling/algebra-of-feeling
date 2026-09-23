@@ -1,0 +1,53 @@
+dim=8 samples=200000
+  min=1.000000  q01=1.000000  q05=1.000000  q25=1.000000  median=1.000000  q75=1.000000  max=1.000000
+  P(|ab| < 0.9) = 0.000000
+  P(|ab| < 0.8) = 0.000000
+  P(|ab| < 0.7) = 0.000000
+  P(|ab| < 0.5) = 0.000000
+  P(|ab| < 0.3) = 0.000000
+  P(|ab| < 0.2) = 0.000000
+  P(|ab| < 0.1) = 0.000000
+dim=16 samples=1000000
+  min=0.436520  q01=0.750480  q05=0.836896  q25=0.941128  median=1.000090  q75=1.055668  max=1.348464
+  P(|ab| < 0.9) = 0.138748
+  P(|ab| < 0.8) = 0.025901
+  P(|ab| < 0.7) = 0.003381
+  P(|ab| < 0.5) = 0.000017
+  P(|ab| < 0.3) = 0.000000
+  P(|ab| < 0.2) = 0.000000
+  P(|ab| < 0.1) = 0.000000
+
+check (e1+e10)(e4-e15) == 0: yes
+elements: 210
+ordered pairs: 44100
+pairs with product exactly 0: 336
+fraction: 0.007619
+elements with at least one zero-divisor partner: 84 of 210
+
+alpha  beta   |ab|/(|a||b|)
+1.0    1.0    0.000000
+1.0    0.9    0.074329
+1.0    0.7    0.245770
+1.0    0.5    0.447214
+0.9    1.0    0.074329
+0.9    0.9    0.104972
+0.9    0.7    0.256113
+0.9    0.5    0.452128
+0.7    1.0    0.245770
+0.7    0.9    0.256113
+0.7    0.7    0.342282
+0.7    0.5    0.498319
+0.5    1.0    0.447214
+0.5    0.9    0.452128
+0.5    0.7    0.498319
+0.5    0.5    0.600000
+
+=== zd_census ===
+elements (mod global sign): 210
+zero-divisor elements: 84
+ordered pairs xy=0: 336
+  of which also yx=0: 336
+unordered pairs: 168
+assessors (index pairs i<j) involved: 42
+  elements with 4 annihilating partners: 84
+assessors with i in 1..7 and j in 8..15: 42 of 42
