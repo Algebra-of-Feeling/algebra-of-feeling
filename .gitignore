@@ -3,5 +3,13 @@ build/
 *.o
 *.elf
 *.out
-verification/
 REGISTRO_FENOMENOLOGICO*
+
+# scripts/verify.sh recompiles and overwrites these on every run; only the
+# evidence files it produces are tracked (axioms.log, build.log,
+# toolchain.log, sha256.txt, receipt.json, ledger-receipt.json,
+# boundary-controls.json under verification/), not the local binary or
+# incidental artifacts from a rerun.
+verification/verify
+verification/clean.log
+verification/receipt 2.json
