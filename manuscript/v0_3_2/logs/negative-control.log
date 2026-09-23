@@ -1,0 +1,6 @@
+OK   positive-control: unmodified RelationalComposition.lean | rejected=no | expected_rejection=no | message=(none — content accepted by the gate)
+OK   negative-control-1: sorry spliced into frozen_protocol_reduces | rejected=yes | expected_rejection=yes | message=Forbidden source token: ./RCDA/RelationalComposition.lean
+OK   negative-control-2: native_decide substituted for decide | rejected=yes | expected_rejection=yes | message=Forbidden source token: ./RCDA/RelationalComposition.lean
+OK   negative-control-3: axiom declaration appended | rejected=yes | expected_rejection=yes | message=Forbidden declaration: ./RCDA/RelationalComposition.lean
+OK   negative-control-4: unapproved import (Mathlib.Tactic) | rejected=yes | expected_rejection=yes | message=Unapproved import: Mathlib.Tactic
+NEGATIVE CONTROL SUITE PASS: gate accepted the unmodified source and rejected all 4 admission attempts tested.
