@@ -19,7 +19,7 @@ Versão 0.3.2 do manuscrito, em português e em inglês britânico, com as figur
 | `pt/` | Manuscrito em português, em `.md` e `.pdf`, e as figuras `fig0`–`fig3` |
 | `en/` | Manuscrito em inglês britânico e as figuras `fig0_en`–`fig3_en` |
 | `cpp/` | Realização e verificações em C++23 |
-| `lean/` | `Levels.lean` (rascunho) e o verificador com o controle negativo |
+| `lean/` | `Levels.lean` e o verificador com o controle negativo |
 | `docs/` | README do Zenodo, briefing do Fable, ata de revisão, nota de fechamento, especificação do despejo Sounio |
 | `logs/` | Saídas de execução e o despejo canônico C++ |
 
@@ -39,14 +39,14 @@ pandoc pt/ALGEBRA_DO_SENTIR_v0_3_2_SSRN.md -o saida.pdf --pdf-engine=xelatex \
 | Separação associador × defeito operacional | Prova Lean |
 | Realização de Bloch e instrumentos | C++23 em racionais exatos, reproduzida em plataforma independente, byte a byte |
 | \(\Delta_Q=\lambda x/2\), \(\Delta_P=z/2\) | Prova em prosa e verificação exata em C++23; **sem prova Lean** |
-| Travessia de níveis | Prova em prosa e verificação em C++23; `lean/Levels.lean` é **rascunho não compilado** |
-| Concordância C++ × Sounio | Comparador pronto e autotestado; despejo do lado Sounio **pendente** |
+| Travessia de níveis | **Prova Lean**: `Levels.lean` no núcleo, recompilado e catalogado (853 declarações, 396 teoremas, 49 claims; axiomas `Classical.choice`, `Quot.sound`, `propext`), e verificação em C++23 |
+| Concordância C++ × Sounio | **COMPARATOR PASS**: 115/115 campos a tolerância 1e-9; maior desvio 2,8e-17 no código rejeitado, cujo s = 9/10 não é exato em f64 |
 
 ## Pendências
 
-1. Rodar `sh scripts/verify.sh` no núcleo com `Levels.lean` incluído e trazer o resultado.
+1. ~~Rodar `verify.sh` com `Levels.lean` e catalogar os cinco teoremas~~ — feito: AUDIT PASS, 853 declarações, 396 teoremas, 49 claims, sem axioma novo.
 2. Depositar o suplemento no Zenodo e substituir o marcador de DOI nos dois manuscritos.
 3. Passada do Fable, com `docs/BRIEFING_FABLE.md`.
-4. Gerar o despejo do lado Sounio, conforme `docs/ESPECIFICACAO_DESPEJO_SOUNIO.md`, e rodar o comparador.
+4. ~~Gerar o despejo do lado Sounio e rodar o comparador~~ — feito: COMPARATOR PASS, 115/115.
 
 Os cálculos seguem o ADR009: C++23, F#, F*, Futhark ou Koka para cálculo, Lean 4 para teorema. Não há código Python nesta pasta.
