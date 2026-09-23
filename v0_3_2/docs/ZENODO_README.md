@@ -18,7 +18,7 @@ Autor: Demetrios Chiuratto Agourakis (Faculdade São Leopoldo Mandic; PUC-SP), O
 **Núcleo formal em Lean 4** (`nucleo-lean/`), toolchain `leanprover/lean4:v4.33.0`, sem Mathlib:
 - `RCDA/Concrete.lean` — associador octoniônico \(2e_7\) e par sedeniônico de produto nulo, por `decide`;
 - `RCDA/RelationalComposition.lean` — separação entre associador a contexto fixo e defeito operacional;
-- `RCDA/Levels.lean` — **rascunho não compilado** da proposição da travessia de níveis;
+- `RCDA/Levels.lean` — proposição da travessia de níveis, compilada e catalogada (49 claims);
 - `Audit.lean`, `AUDIT.md`, `PROOF_LEDGER.md` — catálogo, auditoria de axiomas e registro de estatutos;
 - `scripts/verify.cpp`, `scripts/source_gate.hpp`, `scripts/negative_control.cpp`, `scripts/verify.sh` — verificador em C++23, portão de admissão de fontes e controle negativo executado;
 - `verification/` — recibo, logs de build e de axiomas, hashes SHA-256, log do controle negativo.
@@ -59,5 +59,6 @@ Os cálculos seguem o ADR009 do projeto: C++23, F#, F*, Futhark ou Koka para cá
 - Reproduzido de forma independente: saída de `cd_bloch.cpp` idêntica byte a byte em GCC 13.3 / Linux x86-64 e em Apple clang / arm64 (SHA-256 `289ee521143606376adb3789c43b57e484bbaba9cc8ebebeec405142cf457a88`).
 - Controle negativo do portão de admissão: fonte íntegra aceita; quatro tentativas de admissão rejeitadas.
 - Auditoria de axiomas: apenas `Classical.choice`, `Quot.sound` e `propext`.
-- Sem prova Lean: a identidade dos efeitos de ordem sob decoerência e a proposição da travessia de níveis; ambas têm prova em prosa e verificação computacional.
-- Comparação automatizada C++/Sounio: ferramenta pronta e autotestada; o despejo do lado Sounio ainda não foi gerado.
+- Sem prova Lean: a identidade dos efeitos de ordem sob decoerência, com prova em prosa e verificação exata em C++23.
+- Travessia de níveis: prova Lean em `RCDA/Levels.lean`, catalogada (853 declarações, 396 teoremas, 49 claims), mesmos três axiomas fundamentais.
+- Comparação automatizada C++/Sounio: COMPARATOR PASS, 115/115 campos a tolerância 1e-9; maior desvio 2,8e-17 no código rejeitado (s = 9/10, não exato em f64).
